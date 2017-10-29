@@ -144,6 +144,10 @@ export class AppComponent {
     alert('O menor caminho é: ' + resultado.join(', '));
   }
 
+  public verificarPlanaridade(){
+    alert(this.grafo.VerificarPlanaridade());
+  }
+
   private removerSvg() {
     let container = document.getElementById('graphContainer');
     let svg = container.getElementsByTagName('svg').item(0);

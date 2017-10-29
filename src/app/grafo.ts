@@ -738,20 +738,92 @@ export class Grafo {
             return graphics;
         }
 
-
-
         var renderer = Viva.Graph.View.renderer(graph, {
             layout: layout,
             graphics: customGraphics(),
             container: document.getElementById('graphContainer')
         });
 
-
-
         renderer.run();
 
         for (var i = 0; i < 16; i++) {
             renderer.zoomIn();
         }
+    }
+
+    private TemCicloTres() {
+        var _this = this;
+        var tem = false;
+        //para cada vertice i do grafo
+        this.matrizAdj.forEach(function (element, i) {
+            var verticeAtual = <any>{};
+            verticeAtual.index = i;
+            verticeAtual.nome = _this.V[i];
+            verticeAtual.vizinhos = _this.retornarArestas(verticeAtual.nome);
+            console.log('vertice atual:');
+            console.log(verticeAtual);
+            //para cada vizinho j do vertice i
+            verticeAtual.vizinhos.forEach(function (j) {
+                var nome = _this.V[j];
+                var vizinhos = _this.retornarArestas(nome);
+                console.log("vizinhos do vizinho");
+                console.log(vizinhos);
+                //para cada vizinho k do vertice j
+                vizinhos.forEach(function (k) {
+                    var nome = _this.V[k];
+                    console.log('vizinho:' + nome); 
+                    //se k eh vizinho de i
+                    var aresta = _this.existeAresta(nome, verticeAtual.nome);
+                    if (aresta > 0) {
+                        tem = true;
+                    }
+                });
+
+            });
+            console.log('--------------------------------');
+        });
+        console.log("cicloTres: " + tem);
+        return tem;
+    }
+
+    private QuantidadeDeArestas() {
+        var qtdArestas = 0;
+        var _this = this;
+        var visitados = [];
+
+        this.matrizAdj.forEach(function (element, i) {
+            var verticeAtual = <any>{};
+            verticeAtual.index = i;
+            verticeAtual.nome = _this.V[i];
+            verticeAtual.vizinhos = _this.retornarArestas(verticeAtual.nome);
+
+
+            verticeAtual.vizinhos.forEach(function (element) {
+                var vertice = _this.V[element];
+                if (visitados.indexOf(vertice) > -1) {
+                    qtdArestas++;
+                }
+            });
+            visitados.push(verticeAtual.nome);
+        });
+        return qtdArestas;
+    }
+
+    public VerificarPlanaridade() {
+        var qtdVertices = this.matrizAdj.length;
+        var qtdArestas = this.QuantidadeDeArestas();
+        console.log("Qtd: " + qtdArestas);
+        if (qtdVertices <= 2) {
+            return "É planar";
+        } else if (this.TemCicloTres()) {
+            if (qtdVertices >= 3 && qtdArestas <= 3 * qtdVertices - 6) {
+                return "Pode ser planar";
+            }
+        } else {
+            if (qtdVertices >= 3 && qtdArestas <= 2 * qtdVertices - 4) {
+                return "Pode ser planar";
+            }
+        }
+        return "Não é planar";
     }
 }
