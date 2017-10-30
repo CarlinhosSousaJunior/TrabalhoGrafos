@@ -16,6 +16,7 @@ export class AppComponent {
   public dijkstraDestino: string;
   public peso: string;
   public metodoParaColorir: string = '2';
+  public primOrigem: string;
 
   constructor() {
     //1
@@ -153,5 +154,10 @@ export class AppComponent {
     let svg = container.getElementsByTagName('svg').item(0);
     if (svg)
       svg.remove();
+  }
+
+  public aplicaPrim(){
+    let resultado = this.grafo.AplicaPrim(this.primOrigem.toUpperCase());
+    alert("Aplicando Prim!");//retornar caminho por algoritmo de Prim
   }
 }

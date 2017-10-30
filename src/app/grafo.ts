@@ -813,6 +813,9 @@ export class Grafo {
         var qtdVertices = this.matrizAdj.length;
         var qtdArestas = this.QuantidadeDeArestas();
         console.log("Qtd: " + qtdArestas);
+        if (qtdVertices <= 0){
+            return "Não existe elementos no grafo";
+        }
         if (qtdVertices <= 2) {
             return "É planar";
         } else if (this.TemCicloTres()) {
@@ -825,5 +828,9 @@ export class Grafo {
             }
         }
         return "Não é planar";
+    }
+
+    public AplicaPrim(){
+        var pai = [];
     }
 }
