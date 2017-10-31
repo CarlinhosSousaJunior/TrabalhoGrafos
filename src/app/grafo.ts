@@ -830,7 +830,30 @@ export class Grafo {
         return "Não é planar";
     }
 
-    public AplicaPrim(){
-        var pai = [];
+    public AplicaPrim(origem){
+        var pai = new Array(this.matrizAdj.length);//vetor pai controle de visitas
+        var numberVertices = pai.length; //numero de vertices
+        var primeiro;
+        
+        for(var i = 0; i < pai.length; i++){
+        pai[i] = -1; //atribuindo -1 para controle de visitas
+        }
+        //buscar numero de id do vetor buscado
+        while(1){
+            primeiro = 1;
+            //percorre todos os vertices
+            for(var i = 0; i < numberVertices; i++){
+                //achou vertices visitados
+                if(pai[i] != -1){
+                    //percorrer visinhos do vertice visitado (for)
+                    //procurar menor peso
+                }
+            }
+            if(primeiro === 1){
+                break;
+            }
+            pai[0] = origem; //substituir o zero pela posicao do vizinho de menor peso retornado
+        }
+        return pai;
     }
 }

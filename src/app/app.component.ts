@@ -158,6 +158,6 @@ export class AppComponent {
 
   public aplicaPrim(){
     let resultado = this.grafo.AplicaPrim(this.primOrigem.toUpperCase());
-    alert("Aplicando Prim!");//retornar caminho por algoritmo de Prim
+    alert("Vetor pai - nº casas : " + resultado.join(', '));//teste
   }
 }
