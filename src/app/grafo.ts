@@ -833,7 +833,7 @@ export class Grafo {
     public AplicaPrim(origem){
         var pai = new Array(this.matrizAdj.length);//vetor pai controle de visitas
         var numberVertices = pai.length; //numero de vertices
-        var primeiro;
+        var primeiro, menorPeso, dest;
         
         for(var i = 0; i < pai.length; i++){
         pai[i] = -1; //atribuindo -1 para controle de visitas
@@ -847,6 +847,19 @@ export class Grafo {
                 if(pai[i] != -1){
                     //percorrer visinhos do vertice visitado (for)
                     //procurar menor peso
+                    if(pai[0][0] === -1){//achou a vertice do visinho nao visitado
+                        //substituir zero por vertice de vizinho nao vizitado
+                        menorPeso = 0; //substituir zero por peso do vertice atual (vizinho)
+                        origem = i;
+                        dest = 0;//zero por vizinho não visitado
+                        primeiro = 0;
+                    }else{
+                        if(menorPeso > 0){//substituir zero por peso do vertice atual
+                            menorPeso = 0; //substituir zero pelo peso do vertice atual
+                            origem = i;
+                            dest = 0; //substituir zero por vertice atual
+                        }
+                    }
                 }
             }
             if(primeiro === 1){
