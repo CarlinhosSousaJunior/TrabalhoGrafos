@@ -771,7 +771,7 @@ export class Grafo {
                 //para cada vizinho k do vertice j
                 vizinhos.forEach(function (k) {
                     var nome = _this.V[k];
-                    console.log('vizinho:' + nome); 
+                    console.log('vizinho:' + nome);
                     //se k eh vizinho de i
                     var aresta = _this.existeAresta(nome, verticeAtual.nome);
                     if (aresta > 0) {
@@ -813,7 +813,7 @@ export class Grafo {
         var qtdVertices = this.matrizAdj.length;
         var qtdArestas = this.QuantidadeDeArestas();
         console.log("Qtd: " + qtdArestas);
-        if (qtdVertices <= 0){
+        if (qtdVertices <= 0) {
             return "Não existe elementos no grafo";
         }
         if (qtdVertices <= 2) {
@@ -830,43 +830,48 @@ export class Grafo {
         return "Não é planar";
     }
 
-    public AplicaPrim(origem){
+    public AplicaPrim(origem) {
         var pai = new Array(this.matrizAdj.length);//vetor pai controle de visitas
         var numberVertices = pai.length; //numero de vertices
         var primeiro, menorPeso, dest;
-        
-        for(var i = 0; i < pai.length; i++){
-        pai[i] = -1; //atribuindo -1 para controle de visitas
+        /*
+        for (var i = 0; i < pai.length; i++) {
+            pai[i] = -1; //atribuindo -1 para controle de visitas
         }
+        pai[retorna id do vertice origem] = origem;
         //buscar numero de id do vetor buscado
-        while(1){
+        while (1) {
             primeiro = 1;
             //percorre todos os vertices
-            for(var i = 0; i < numberVertices; i++){
+            for (var i = 0; i < numberVertices; i++) {
                 //achou vertices visitados
-                if(pai[i] != -1){
+                if (pai[i] != -1) {
                     //percorrer visinhos do vertice visitado (for)
                     //procurar menor peso
-                    if(pai[0][0] === -1){//achou a vertice do visinho nao visitado
-                        //substituir zero por vertice de vizinho nao vizitado
-                        menorPeso = 0; //substituir zero por peso do vertice atual (vizinho)
-                        origem = i;
-                        dest = 0;//zero por vizinho não visitado
-                        primeiro = 0;
-                    }else{
-                        if(menorPeso > 0){//substituir zero por peso do vertice atual
-                            menorPeso = 0; //substituir zero pelo peso do vertice atual
-                            origem = i;
-                            dest = 0; //substituir zero por vertice atual
+                    for (var j = 0; j < qtd de vizinhos; j++){
+                        if (pai[caminhar com j pela lista de vertice dos vizinhos] === -1){//achou a vertice do vizinho nao visitado
+                            //substituir zero por vertice de vizinho nao vizitado
+                            if (primeiro){
+                                menorPeso = 0; //substituir zero por peso do vertice atual (vizinho)
+                                origem = i;
+                                dest = 0;//zero por indice do vizinho não visitado
+                                primeiro = 0;
+                            } else {
+                                if (menorPeso > 0) {//substituir zero por peso do vertice atual
+                                    menorPeso = 0; //substituir zero pelo peso do vertice atual
+                                    origem = i;
+                                    dest = 0; //substituir zero por indice do vertice atual
+                                }
+                            }
                         }
                     }
                 }
             }
-            if(primeiro === 1){
+            if (primeiro === 1) {
                 break;
             }
-            pai[0] = origem; //substituir o zero pela posicao do vizinho de menor peso retornado
-        }
+            pai[dest] = origem; //substituir o zero pela posicao do vizinho de menor peso retornado
+        }*/
         return pai;
     }
 }
