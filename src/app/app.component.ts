@@ -37,8 +37,7 @@ export class AppComponent {
     this.grafo.inserirAresta('C', 'B', 3);
     this.grafo.inserirAresta('E', 'C', 9);
     this.grafo.inserirAresta('E', 'D', 7);
-    
-    this.grafo.kruskal();
+
     //2
 
     // this.grafo.inserirVertice('0');
@@ -148,7 +147,7 @@ export class AppComponent {
     alert('O menor caminho é: ' + resultado.join(', '));
   }
 
-  public verificarPlanaridade(){
+  public verificarPlanaridade() {
     alert(this.grafo.VerificarPlanaridade());
   }
 
@@ -159,8 +158,31 @@ export class AppComponent {
       svg.remove();
   }
 
-  public aplicaPrim(){
+  public aplicaPrim() {
+    this.removerSvg();
     let resultado = this.grafo.AplicaPrim(this.primOrigem.toUpperCase());
-    alert("Vetor pai - nº casas : " + resultado.join(', '));//teste
+  }
+
+  public kruskal() {
+    this.removerSvg();
+    let result = this.grafo.kruskal();
+    let arrayzao = [];
+
+    result.forEach(value => {
+      if (arrayzao.findIndex(x => x.nome == value.origem) < 0) {
+        arrayzao.push({ nome: value.origem, vizinhos: [] });
+      }
+    });
+
+    arrayzao.forEach(value => {
+      var arr = result.filter(x => x.origem == value.nome);
+      if (arr.length > 0)
+        arr.forEach(element => {
+          value.vizinhos.push(element.destino);
+        });
+    });
+
+    console.log(arrayzao);
+    this.grafo.desenhaGrafo(arrayzao, false);
   }
 }
