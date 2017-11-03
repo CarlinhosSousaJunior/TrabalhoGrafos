@@ -831,7 +831,7 @@ export class Grafo {
         var conjuntoQ = this.V.concat([]);
         var conjuntoV = new Array();
         var conjuntoS = new Array();
-
+        var _this = this;
         var indiceOrigem = this.V.indexOf(origem);
         origem = conjuntoQ.splice(indiceOrigem, 1)[0];
         conjuntoV.push(origem);
@@ -842,7 +842,9 @@ export class Grafo {
             for (let vertice of conjuntoV) {
                 var indiceVert = this.V.indexOf(vertice);
                 var vizinhos = this.retornarArestas(vertice);
+                console.log('aqui');
                 console.log(vizinhos);
+            
                 for (let vizinho of vizinhos) {
                     if (conjuntoQ.indexOf(this.V[vizinho]) != -1) {
                         var peso = this.matrizAdj[indiceVert][vizinho];
@@ -871,8 +873,8 @@ export class Grafo {
 
         conjuntoS.forEach(function (element) {
             subgrafo.forEach(function (e) {
-                if (e.nome == element[0]) {
-                    e.vizinhos.push(element[1].toString());
+                if (e.nome == _this.V[element[0]]) {
+                    e.vizinhos.push(_this.V[element[1]]);
                 }
             });
         });
