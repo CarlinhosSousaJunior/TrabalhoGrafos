@@ -771,7 +771,7 @@ export class Grafo {
                 //para cada vizinho k do vertice j
                 vizinhos.forEach(function (k) {
                     var nome = _this.V[k];
-                    console.log('vizinho:' + nome); 
+                    console.log('vizinho:' + nome);
                     //se k eh vizinho de i
                     var aresta = _this.existeAresta(nome, verticeAtual.nome);
                     if (aresta > 0) {
@@ -813,7 +813,7 @@ export class Grafo {
         var qtdVertices = this.matrizAdj.length;
         var qtdArestas = this.QuantidadeDeArestas();
         console.log("Qtd: " + qtdArestas);
-        if (qtdVertices <= 0){
+        if (qtdVertices <= 0) {
             return "Não existe elementos no grafo";
         }
         if (qtdVertices <= 2) {
@@ -830,31 +830,31 @@ export class Grafo {
         return "Não é planar";
     }
 
-    public AplicaPrim(origem){
+    public AplicaPrim(origem) {
         var pai = new Array(this.matrizAdj.length);//vetor pai controle de visitas
         var numberVertices = pai.length; //numero de vertices
         var primeiro, menorPeso, dest;
-        
-        for(var i = 0; i < pai.length; i++){
-        pai[i] = -1; //atribuindo -1 para controle de visitas
+
+        for (var i = 0; i < pai.length; i++) {
+            pai[i] = -1; //atribuindo -1 para controle de visitas
         }
         //buscar numero de id do vetor buscado
-        while(1){
+        while (1) {
             primeiro = 1;
             //percorre todos os vertices
-            for(var i = 0; i < numberVertices; i++){
+            for (var i = 0; i < numberVertices; i++) {
                 //achou vertices visitados
-                if(pai[i] != -1){
+                if (pai[i] != -1) {
                     //percorrer visinhos do vertice visitado (for)
                     //procurar menor peso
-                    if(pai[0][0] === -1){//achou a vertice do visinho nao visitado
+                    if (pai[0][0] === -1) {//achou a vertice do visinho nao visitado
                         //substituir zero por vertice de vizinho nao vizitado
                         menorPeso = 0; //substituir zero por peso do vertice atual (vizinho)
                         origem = i;
                         dest = 0;//zero por vizinho não visitado
                         primeiro = 0;
-                    }else{
-                        if(menorPeso > 0){//substituir zero por peso do vertice atual
+                    } else {
+                        if (menorPeso > 0) {//substituir zero por peso do vertice atual
                             menorPeso = 0; //substituir zero pelo peso do vertice atual
                             origem = i;
                             dest = 0; //substituir zero por vertice atual
@@ -862,11 +862,67 @@ export class Grafo {
                     }
                 }
             }
-            if(primeiro === 1){
+            if (primeiro === 1) {
                 break;
             }
             pai[0] = origem; //substituir o zero pela posicao do vizinho de menor peso retornado
         }
         return pai;
     }
+
+    public kruskal() {
+        let s = [];
+        let arestas = [];
+        let floresta = [];
+        this.V.forEach((vertice) => {
+            floresta.push([vertice]);
+        });
+
+        let _this = this;
+        this.listaAdj.forEach((elemento, i) => {
+            elemento.forEach(elemento2 => {
+                arestas.push({ origem: _this.V[i], destino: elemento2.vertice, peso: elemento2.peso });
+            });
+        });
+
+        let listaOrdenada = arestas.sort((a, b) => { return b.peso - a.peso });
+
+        let buscaVertice = (floresta, vertice) => {
+            let resultado;
+            floresta.forEach((element, indice) => {
+                element.forEach((el, indice2) => {
+                    if (el == vertice)
+                        resultado = indice;
+                });
+            });
+            return resultado;
+        };
+
+        let saoDeArvoresDiferentes = (floresta, origem, destino) => {
+            let indice1, indice2;
+            floresta.forEach((element, indice) => {
+                if (element.find(x => x == origem))
+                    indice1 = indice;
+                if (element.find(x => x == destino))
+                    indice2 = indice;
+            });
+            return indice1 != indice2;
+        };
+
+        while (arestas.length > 1) {
+            let aresta = arestas.pop();
+            let origem = aresta.origem;
+            let destino = aresta.destino;
+
+            if (saoDeArvoresDiferentes(floresta, origem, destino)) {
+                s.push(aresta);
+                let i1 = buscaVertice(floresta, origem);
+                let i2 = buscaVertice(floresta, destino);
+                floresta[i1] = floresta[i1].concat(floresta[i2]);
+                floresta.splice(i2, 1);
+            }
+        }
+        console.log(s);
+    }
+
 }

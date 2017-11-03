@@ -20,22 +20,25 @@ export class AppComponent {
 
   constructor() {
     //1
-    // this.grafo.inserirVertice('0');
-    // this.grafo.inserirVertice('1');
-    // this.grafo.inserirVertice('2');
-    // this.grafo.inserirVertice('3');
-    // this.grafo.inserirVertice('4');
-    // this.grafo.inserirVertice('5');
+    this.grafo.inserirVertice('A');
+    this.grafo.inserirVertice('B');
+    this.grafo.inserirVertice('C');
+    this.grafo.inserirVertice('D');
+    this.grafo.inserirVertice('E');
+    this.grafo.inserirVertice('F');
 
-    // this.grafo.inserirAresta('0', '3', 1);
-    // this.grafo.inserirAresta('0', '5', 1);
-
-    // this.grafo.inserirAresta('1', '2', 1);
-    // this.grafo.inserirAresta('1', '4', 1);
-
-    // this.grafo.inserirAresta('2', '5', 1);
-    // this.grafo.inserirAresta('3', '4', 1);
-
+    this.grafo.inserirAresta('A', 'D', 2);
+    this.grafo.inserirAresta('A', 'E', 10);
+    this.grafo.inserirAresta('A', 'C', 7);
+    this.grafo.inserirAresta('F','E', 8);
+    this.grafo.inserirAresta('F', 'D', 4);
+    this.grafo.inserirAresta('F', 'C', 3);
+    this.grafo.inserirAresta('F', 'B', 2);
+    this.grafo.inserirAresta('C', 'B', 3);
+    this.grafo.inserirAresta('E', 'C', 9);
+    this.grafo.inserirAresta('E', 'D', 7);
+    
+    this.grafo.kruskal();
     //2
 
     // this.grafo.inserirVertice('0');
