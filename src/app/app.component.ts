@@ -79,22 +79,22 @@ export class AppComponent {
 
 
     //4
-    // this.grafo.inserirVertice('0');
-    // this.grafo.inserirVertice('1');
-    // this.grafo.inserirVertice('2');
-    // this.grafo.inserirVertice('3');
-    // this.grafo.inserirVertice('4');
-    // this.grafo.inserirVertice('5');
+    this.grafo.inserirVertice('0');
+    this.grafo.inserirVertice('1');
+    this.grafo.inserirVertice('2');
+    this.grafo.inserirVertice('3');
+    this.grafo.inserirVertice('4');
+    this.grafo.inserirVertice('5');
 
-    // this.grafo.inserirAresta('0', '1', 1);
-    // this.grafo.inserirAresta('0', '2', 5);
-    // this.grafo.inserirAresta('1', '4', 6);
-    // this.grafo.inserirAresta('1', '3', 4);
-    // this.grafo.inserirAresta('4', '2', 1);
+    this.grafo.inserirAresta('0', '1', 1);
+    this.grafo.inserirAresta('0', '2', 5);
+    this.grafo.inserirAresta('1', '4', 6);
+    this.grafo.inserirAresta('1', '3', 4);
+    this.grafo.inserirAresta('4', '2', 1);
 
-    // this.grafo.inserirAresta('4', '5', 7);
-    // this.grafo.inserirAresta('2', '5', 2);
-    // this.grafo.inserirAresta('5', '3', 15);
+    this.grafo.inserirAresta('4', '5', 7);
+    this.grafo.inserirAresta('2', '5', 2);
+    this.grafo.inserirAresta('5', '3', 15);
 
     // this.grafo.dSatur();
   }
@@ -157,7 +157,7 @@ export class AppComponent {
   }
 
   public aplicaPrim(){
+    this.removerSvg();
     let resultado = this.grafo.AplicaPrim(this.primOrigem.toUpperCase());
-    alert("Vetor pai - nº casas : " + resultado.join(', '));//teste
   }
 }

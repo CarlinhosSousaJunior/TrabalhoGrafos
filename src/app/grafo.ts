@@ -448,7 +448,7 @@ export class Grafo {
             });
             vertice.vizinhos = array;
         });
-
+        console.log("teste");
         console.log(vertices);
 
         this.desenhaGrafo(vertices, this.isOrientado);
@@ -813,9 +813,6 @@ export class Grafo {
         var qtdVertices = this.matrizAdj.length;
         var qtdArestas = this.QuantidadeDeArestas();
         console.log("Qtd: " + qtdArestas);
-        if (qtdVertices <= 0) {
-            return "Não existe elementos no grafo";
-        }
         if (qtdVertices <= 2) {
             return "É planar";
         } else if (this.TemCicloTres()) {
@@ -831,47 +828,57 @@ export class Grafo {
     }
 
     public AplicaPrim(origem) {
-        var pai = new Array(this.matrizAdj.length);//vetor pai controle de visitas
-        var numberVertices = pai.length; //numero de vertices
-        var primeiro, menorPeso, dest;
-        /*
-        for (var i = 0; i < pai.length; i++) {
-            pai[i] = -1; //atribuindo -1 para controle de visitas
-        }
-        pai[retorna id do vertice origem] = origem;
-        //buscar numero de id do vetor buscado
-        while (1) {
-            primeiro = 1;
-            //percorre todos os vertices
-            for (var i = 0; i < numberVertices; i++) {
-                //achou vertices visitados
-                if (pai[i] != -1) {
-                    //percorrer visinhos do vertice visitado (for)
-                    //procurar menor peso
-                    for (var j = 0; j < qtd de vizinhos; j++){
-                        if (pai[caminhar com j pela lista de vertice dos vizinhos] === -1){//achou a vertice do vizinho nao visitado
-                            //substituir zero por vertice de vizinho nao vizitado
-                            if (primeiro){
-                                menorPeso = 0; //substituir zero por peso do vertice atual (vizinho)
-                                origem = i;
-                                dest = 0;//zero por indice do vizinho não visitado
-                                primeiro = 0;
-                            } else {
-                                if (menorPeso > 0) {//substituir zero por peso do vertice atual
-                                    menorPeso = 0; //substituir zero pelo peso do vertice atual
-                                    origem = i;
-                                    dest = 0; //substituir zero por indice do vertice atual
-                                }
-                            }
+        var conjuntoQ = this.V.concat([]);
+        var conjuntoV = new Array();
+        var conjuntoS = new Array();
+
+        var indiceOrigem = this.V.indexOf(origem);
+        origem = conjuntoQ.splice(indiceOrigem, 1)[0];
+        conjuntoV.push(origem);
+
+        while (conjuntoQ.length) {
+            var pesoMenor = Infinity;
+            var arestaMenor;
+            for (let vertice of conjuntoV) {
+                var indiceVert = this.V.indexOf(vertice);
+                var vizinhos = this.retornarArestas(vertice);
+                console.log(vizinhos);
+                for (let vizinho of vizinhos) {
+                    if (conjuntoQ.indexOf(this.V[vizinho]) != -1) {
+                        var peso = this.matrizAdj[indiceVert][vizinho];
+                        console.log(peso, pesoMenor);
+                        if (peso < pesoMenor) {
+                            arestaMenor = [indiceVert, vizinho, peso];
+                            pesoMenor = peso;
                         }
                     }
                 }
             }
-            if (primeiro === 1) {
-                break;
-            }
-            pai[dest] = origem; //substituir o zero pela posicao do vizinho de menor peso retornado
-        }*/
-        return pai;
+            conjuntoS.push(arestaMenor);
+            conjuntoV.push(conjuntoQ.splice(conjuntoQ.indexOf(this.V[arestaMenor[1]]), 1)[0]);
+            console.log(conjuntoS, conjuntoV);
+
+        }
+        var subgrafo = [];
+
+
+        conjuntoV.forEach(function (element) {
+            var vertice = <any>{};
+            vertice.nome = element.toString();
+            vertice.vizinhos = [];
+            subgrafo.push(vertice);
+        });
+
+        conjuntoS.forEach(function (element) {
+            subgrafo.forEach(function (e) {
+                if (e.nome == element[0]) {
+                    e.vizinhos.push(element[1].toString());
+                }
+            });
+        });
+        console.log('sub');
+        console.log(subgrafo);
+        this.desenhaGrafo(subgrafo, false);
+        return conjuntoV;
     }
 }
