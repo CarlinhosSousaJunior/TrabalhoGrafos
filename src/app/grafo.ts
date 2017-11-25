@@ -156,8 +156,7 @@ export class Grafo {
                 }
             });
         console.log("Pilha: " + pilha);
-        var saida = "Saída: " + visitados.join(", ");
-        console.log(saida);
+        return visitados;
 
         function verificacaoRecursiva(atual, _this) {
             visitados.push(atual);
@@ -188,8 +187,8 @@ export class Grafo {
         var visitados = [];
         var achouDestino = false;
         verificacaoRecursiva(origem, this);
-        var saida = "Saída: " + visitados.join(", ");
-        console.log(saida);
+        return visitados;
+
         function verificacaoRecursiva(atual, _this) {
             visitados.push(atual);
             fila.splice(0, 1);
@@ -844,7 +843,7 @@ export class Grafo {
                 var vizinhos = this.retornarArestas(vertice);
                 console.log('aqui');
                 console.log(vizinhos);
-            
+
                 for (let vizinho of vizinhos) {
                     if (conjuntoQ.indexOf(this.V[vizinho]) != -1) {
                         var peso = this.matrizAdj[indiceVert][vizinho];
@@ -939,4 +938,54 @@ export class Grafo {
         return s;
     }
 
+    private getIndiceDoVertice(vertice) {
+        let indice = this.V.findIndex(function (v) { return v.toUpperCase() == vertice.toUpperCase() });
+        return indice;
+    }
+
+    public fordFukerson() {
+        const log = true;
+        let getVerticeOrigemEDestino = () => {
+            let indexInicial = Math.floor(Math.random() * this.V.length);
+            let indexFinal = Math.floor(Math.random() * this.V.length);
+            if (indexInicial != indexFinal)
+                return [indexInicial, indexFinal];
+            return getVerticeOrigemEDestino();
+        };
+
+        //Define a origem e o destino.
+        let vertices = getVerticeOrigemEDestino();
+        let verticeOrigem = this.V[vertices[0]];
+        let verticeDestino = this.V[vertices[1]];
+
+        if (log) {
+            console.log('Origem: ', verticeOrigem);
+            console.log('Destino: ', verticeDestino);
+        }
+
+        //Cria a cópia do grafo original.
+        let grafoAuxiliar = Object.assign({}, this.matrizAdj);
+        let s = 0;
+        let p = this.dfs(verticeOrigem, verticeDestino);
+        if (log)
+            console.log(p);
+
+        let getMenorArco = (caminho) => {
+            let menor = Infinity;
+            caminho.forEach((vertice, indice) => {
+                if (caminho[indice + 1]) {
+                    let atual = this.existeAresta(vertice, caminho[indice + 1]);
+                    if (log)
+                        console.log(atual);
+                    if (atual < menor)
+                        menor = atual;
+                }
+            });
+            return menor;
+        };
+
+        let menorArco = getMenorArco(p);
+        if (log)
+            console.log(menorArco);
+    }
 }
