@@ -156,13 +156,9 @@ export class Grafo {
                 }
             });
         console.log("Pilha: " + pilha);
-<<<<<<< HEAD
         var saida = "Saída: " + visitados.join(", ");
         console.log(saida);
         return saida;
-=======
-        return visitados;
->>>>>>> 95fb27c31cc144fba13b56c0bd49362c5c71b8b7
 
         function verificacaoRecursiva(atual, _this) {
             if (achouDestino) {
