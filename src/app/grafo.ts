@@ -158,8 +158,12 @@ export class Grafo {
         console.log("Pilha: " + pilha);
         var saida = "Saída: " + visitados.join(", ");
         console.log(saida);
+        return saida;
 
         function verificacaoRecursiva(atual, _this) {
+            if (achouDestino) {
+                return;
+            }
             visitados.push(atual);
             pilha.push(atual);
             if (verticeDestino === atual) {
@@ -439,15 +443,25 @@ export class Grafo {
             indexVertice++;
         }
 
-
-        vertices.forEach(function (vertice) {
-            var adjacentes = _this.retornarArestas(vertice.nome);
-            var array = [];
-            adjacentes.forEach(function (i) {
-                array.push(_this.V[i]);
+        if (this.isPonderado) {
+            vertices.forEach(function (vertice) {
+                var adjacentes = _this.retornarArestas(vertice.nome);
+                var array = [];
+                adjacentes.forEach(function (i) {
+                    array.push({ nome: _this.V[i], peso: _this.matrizAdj[vertice.index][i] });
+                });
+                vertice.vizinhos = array;
             });
-            vertice.vizinhos = array;
-        });
+        } else {
+            vertices.forEach(function (vertice) {
+                var adjacentes = _this.retornarArestas(vertice.nome);
+                var array = [];
+                adjacentes.forEach(function (i) {
+                    array.push(_this.V[i]);
+                });
+                vertice.vizinhos = array;
+            });
+        }
         console.log("teste");
         console.log(vertices);
 
@@ -616,7 +630,7 @@ export class Grafo {
     public desenhaGrafo(grafo, isOriented) {
         var graphGenerator = Viva.Graph.generator();
         var graph = Viva.Graph.graph();
-
+        var _this = this;
 
         grafo.forEach(function (vertice) {
             graph.addNode(vertice.nome, vertice.cor);
@@ -626,7 +640,11 @@ export class Grafo {
             var label = vertice.nome;
 
             vertice.vizinhos.forEach(function (vizinho) {
-                graph.addLink(label, vizinho);
+                if (_this.isPonderado) {
+                    graph.addLink(label, vizinho.nome, { id: vertice.nome + vizinho.nome, peso: vizinho.peso || "" });
+                } else {
+                    graph.addLink(label, vizinho);
+                }
             });
         });
 
@@ -687,9 +705,13 @@ export class Grafo {
                 var geom = Viva.Graph.geom();
 
                 graphics.link(function (link) {
+                    var label = Viva.Graph.svg('text').attr("font-size", 8).attr("font-family", "Arial").attr('id', 'label_' + link.data.id).text(link.data.peso);
+                    graphics.getSvgRoot().childNodes[0].append(label);
+
                     var ui = Viva.Graph.svg('path');
                     ui.attr('stroke', 'gray')
-                        .attr('marker-end', 'url(#Triangle)');
+                        .attr('marker-end', 'url(#Triangle)')
+                        .attr('id', link.data.id);
                     return ui;
 
                 }).placeLink(function (linkUI, fromPos, toPos) {
@@ -732,6 +754,10 @@ export class Grafo {
                         'L' + to.x + ',' + to.y;
 
                     linkUI.attr("d", data);
+
+                    let teste: any = document.getElementById('label_' + linkUI.attr('id'));
+                    teste.attr("x", (from.x + to.x) / 2);
+                    teste.attr("y", (from.y + to.y) / 2);
                 });
             }
 
@@ -844,7 +870,7 @@ export class Grafo {
                 var vizinhos = this.retornarArestas(vertice);
                 console.log('aqui');
                 console.log(vizinhos);
-            
+
                 for (let vizinho of vizinhos) {
                     if (conjuntoQ.indexOf(this.V[vizinho]) != -1) {
                         var peso = this.matrizAdj[indiceVert][vizinho];

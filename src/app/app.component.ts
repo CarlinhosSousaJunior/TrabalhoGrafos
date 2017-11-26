@@ -17,6 +17,8 @@ export class AppComponent {
   public peso: string;
   public metodoParaColorir: string = '2';
   public primOrigem: string;
+  public dfsOrigem: string;
+  public dfsDestino: string;
 
   constructor() {
     //1
@@ -98,26 +100,25 @@ export class AppComponent {
     // this.grafo.inserirAresta('2', '5', 2);
     // this.grafo.inserirAresta('5', '3', 15);
 
-    // this.grafo.dSatur();
     
   //Grafo Prim
-  this.grafo.inserirVertice("A");
-  this.grafo.inserirVertice("B");
-  this.grafo.inserirVertice("C");
-  this.grafo.inserirVertice("D");
-  this.grafo.inserirVertice("E");
-  this.grafo.inserirVertice("F");
+  // this.grafo.inserirVertice("A");
+  // this.grafo.inserirVertice("B");
+  // this.grafo.inserirVertice("C");
+  // this.grafo.inserirVertice("D");
+  // this.grafo.inserirVertice("E");
+  // this.grafo.inserirVertice("F");
 
-  this.grafo.inserirAresta('A', 'E', 10);
-  this.grafo.inserirAresta('A', 'D', 2);
-  this.grafo.inserirAresta('A', 'C', 7);
-  this.grafo.inserirAresta('E', 'C', 9);
-  this.grafo.inserirAresta('E', 'D', 7);
-  this.grafo.inserirAresta('E', 'F', 8);
-  this.grafo.inserirAresta('F', 'D', 4);
-  this.grafo.inserirAresta('F', 'C', 3);
-  this.grafo.inserirAresta('F', 'B', 2);
-  this.grafo.inserirAresta('B', 'C', 3);
+  // this.grafo.inserirAresta('A', 'E', 10);
+  // this.grafo.inserirAresta('A', 'D', 2);
+  // this.grafo.inserirAresta('A', 'C', 7);
+  // this.grafo.inserirAresta('E', 'C', 9);
+  // this.grafo.inserirAresta('E', 'D', 7);
+  // this.grafo.inserirAresta('E', 'F', 8);
+  // this.grafo.inserirAresta('F', 'D', 4);
+  // this.grafo.inserirAresta('F', 'C', 3);
+  // this.grafo.inserirAresta('F', 'B', 2);
+  // this.grafo.inserirAresta('B', 'C', 3);
   }
 
 
@@ -204,5 +205,18 @@ export class AppComponent {
 
     console.log(arrayzao);
     this.grafo.desenhaGrafo(arrayzao, false);
+  }
+
+  public dfs(){
+    if(!this.dfsOrigem){
+      alert('A origem é obrigatória');
+    }else{
+      if(!this.dfsDestino || this.dfsDestino == ''){
+        alert(this.grafo.dfs(this.dfsOrigem.toUpperCase()));
+      }else{
+        alert(this.grafo.dfs(this.dfsOrigem.toUpperCase(),this.dfsDestino.toUpperCase()));
+      }
+    }
+    
   }
 }
