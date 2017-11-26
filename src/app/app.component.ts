@@ -21,7 +21,8 @@ export class AppComponent {
   public dfsDestino: string;
 
   constructor() {
-    //1
+     //1
+
     this.grafo.inserirVertice('A');
     this.grafo.inserirVertice('B');
     this.grafo.inserirVertice('C');
@@ -31,14 +32,15 @@ export class AppComponent {
 
     this.grafo.inserirAresta('A', 'D', 2);
     this.grafo.inserirAresta('A', 'E', 10);
-    this.grafo.inserirAresta('A', 'C', 7);
-    this.grafo.inserirAresta('F','E', 8);
-    this.grafo.inserirAresta('F', 'D', 4);
-    this.grafo.inserirAresta('F', 'C', 3);
-    this.grafo.inserirAresta('F', 'B', 2);
-    this.grafo.inserirAresta('C', 'B', 3);
-    this.grafo.inserirAresta('E', 'C', 9);
-    this.grafo.inserirAresta('E', 'D', 7);
+    this.grafo.inserirAresta('A', 'F', 7);
+    this.grafo.inserirAresta('B', 'D', 8);
+    this.grafo.inserirAresta('B', 'E', 4);
+    this.grafo.inserirAresta('B', 'F', 3);
+    this.grafo.inserirAresta('C', 'D', 2);
+    this.grafo.inserirAresta('C', 'E', 3);
+    this.grafo.inserirAresta('C', 'F', 9);
+
+    this.grafo.fordFukerson();
 
     //2
 
@@ -182,6 +184,11 @@ export class AppComponent {
   public aplicaPrim() {
     this.removerSvg();
     let resultado = this.grafo.AplicaPrim(this.primOrigem.toUpperCase());
+  }
+
+  public fluxoMax(){
+    this.removerSvg();
+    let resultado = this.grafo.fordFukerson();
   }
 
   public kruskal() {
