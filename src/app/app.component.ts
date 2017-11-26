@@ -22,7 +22,9 @@ export class AppComponent {
 
   constructor() {
      //1
-
+    this.grafo.isOrientado = true;
+    this.grafo.isPonderado = true;
+    
     this.grafo.inserirVertice('A');
     this.grafo.inserirVertice('B');
     this.grafo.inserirVertice('C');
@@ -188,11 +190,12 @@ export class AppComponent {
   }
 
   public fluxoMax(){
-    this.removerSvg();
+    //se limpar tem que mandar desenhar denovo pq ta dando merda com ele tentando desenhar os pesos das arestas
+    //this.removerSvg();
     let resultado = this.grafo.fordFukerson();
   }
 
-  public kruskal() {
+  public kruskal() {    
     this.removerSvg();
     let result = this.grafo.kruskal();
     let arrayzao = [];

@@ -993,7 +993,8 @@ export class Grafo {
         //Cria a cópia do grafo original.
         let grafoAuxiliar = Object.assign({}, this.matrizAdj);
         let s = 0;
-        let p = this.dfs(verticeOrigem, verticeDestino);
+        let saidaDfs = this.dfs(verticeOrigem, verticeDestino);
+        var p = this.saidaDfsParaArray(saidaDfs);
         if (log)
             console.log(p);
 
@@ -1016,5 +1017,14 @@ export class Grafo {
             console.log("Menor Arco: " + menorArco);
         }
         console.log(grafoAuxiliar);
+    }
+
+    private saidaDfsParaArray(str){
+        //remove o que é desnecessário
+        str = str.replace('Saída: ','');
+        //remove os espaços em branco
+        str = str.replace(/\s/g,'');
+        //retorna os vertices em forma de array
+        return str.split(',');
     }
 }
