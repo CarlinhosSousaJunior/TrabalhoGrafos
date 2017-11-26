@@ -40,7 +40,8 @@ export class AppComponent {
     this.grafo.inserirAresta('C', 'E', 3);
     this.grafo.inserirAresta('C', 'F', 9);
 
-    this.grafo.fordFukerson();
+    //mudei o retorno do dfs, tem que adaptar
+   // this.grafo.fordFukerson();
 
     //2
 
