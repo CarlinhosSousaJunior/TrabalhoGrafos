@@ -202,6 +202,11 @@ export class AppComponent {
     let resultado = this.grafo.AplicaPrim(this.primOrigem.toUpperCase());
   }
 
+  public fluxoMax(){
+    this.removerSvg();
+    let resultado = this.grafo.fordFukerson();
+  }
+
   public kruskal() {
     this.removerSvg();
     let result = this.grafo.kruskal();

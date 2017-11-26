@@ -97,34 +97,38 @@
               <button class="btn btn-sm btn-dark" style="margin-top: 20px" type="button" (click)="kruskal()">Kruskal</button>
             </div>
           </div>
+          <div class="form-row" *ngIf="grafo.isPonderado && grafo.isOrientado">
+            <div class="form-group col-md-2">
+              <button class="btn btn-sm btn-dark" style="margin-top: 20px" type="button" (click)="fluxoMax()">Fluxo Máximo</button>
+            </div>
+          </div>
         </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <!-- Vertices -->
+              <th>#</th>
+              <th *ngFor="let vertice of grafo.V">{{vertice}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let vertice of grafo.V; index as i">
+              <th scope="row">{{vertice}}</th>
+              <!-- arestas/arcos -->
+              <td *ngFor="let valor of grafo.matrizAdj[i]">
+                {{valor}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <!-- Vertices -->
-            <th>#</th>
-            <th *ngFor="let vertice of grafo.V">{{vertice}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let vertice of grafo.V; index as i">
-            <th scope="row">{{vertice}}</th>
-            <!-- arestas/arcos -->
-            <td *ngFor="let valor of grafo.matrizAdj[i]">
-              {{valor}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <div id='graphContainer'>
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <div id='graphContainer'>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>

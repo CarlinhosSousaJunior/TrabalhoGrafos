@@ -938,7 +938,7 @@ export class Grafo {
         return s;
     }
 
-    private getIndiceDoVertice(vertice) {
+    private getIndiceDoVerticenp(vertice) {
         let indice = this.V.findIndex(function (v) { return v.toUpperCase() == vertice.toUpperCase() });
         return indice;
     }
@@ -985,7 +985,9 @@ export class Grafo {
         };
 
         let menorArco = getMenorArco(p);
-        if (log)
-            console.log(menorArco);
+        if (log) {
+            console.log("Menor Arco: " + menorArco);
+        }
+        console.log(grafoAuxiliar);
     }
 }
